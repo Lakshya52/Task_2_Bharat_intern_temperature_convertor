@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@500&display=swap');
+    </style>
+    <style>
+        body {
+            font-family: 'Lobster', cursive;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("wp4716176-aesthetic-hd-laptop-wallpapers.jpg");
+        }
+
+        #wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: left;
+            width: 50vw;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(7.5px);
+            -webkit-backdrop-filter: blur(7.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        h2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h2 img {
+            height: 40px;
+            padding-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="wrapper">
+            <h2>
+                <img src="celsius.png" alt="celsius.png">
+                TEMPERATURE CONVERTER
+            </h2>
+
+            <div id="contents">
+                <label for="source"> Convert From</label> 
+                <select id="source">
+                    <option>select unit</option>
+                    <option value="Celsius">Celsius</option>
+                    <option value="Fahrenheit">Fahrenheit</option>
+                    <option value="Kelvin">Kelvin</option>
+                    <option value="Rankine">Rankine</option>
+                    <option value="Réaumur">Réaumur</option>
+                </select>
+                <label for="output_in">to</label>
+                <select id="output_in">
+                    <option>select unit</option>
+                    <option value="Celsius">Celsius</option>
+                    <option value="Fahrenheit">Fahrenheit</option>
+                    <option value="Kelvin">Kelvin</option>
+                    <option value="Rankine">Rankine</option>
+                    <option value="Réaumur">Réaumur</option>
+                </select>
+            </div>
+
+            <br>
+            <div id="input_section">
+                <label for="input">INPUT : </label>
+                <br>
+                <input type="number" id="input">
+            </div>
+
+            <br>
+            <div id="output_section">
+                <label for="output">OUTPUT : </label>
+                <br>
+                <input type="number" id="output" readonly>
+            </div>
+
+            <br>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('source').addEventListener('change', updateOutput);
+        document.getElementById('output_in').addEventListener('change', updateOutput);
+        document.getElementById('input').addEventListener('input', updateOutput);
+
+        function updateOutput() {
+            var source = document.getElementById('source').value;
+            var output_in = document.getElementById('output_in').value;
+            var input = parseFloat(document.getElementById('input').value);
+            var output;
+            // var default_value = "000000000";
+
+            if (source == "Celsius") {
+                if (output_in == "Fahrenheit") {
+                    output = (input * 9 / 5) + 32;
+                } else if (output_in == "Kelvin") {
+                    output = input + 273.15;
+                } else if (output_in == "Rankine") {
+                    output = (input + 273.15) * 9 / 5;
+                } else if (output_in == "Réaumur") {
+                    output = input * 4 / 5;
+                }
+            } else if (source == "Fahrenheit") {
+                if (output_in == "Celsius") {
+                    output = (input - 32) * 5 / 9;
+                } else if (output_in == "Kelvin") {
+                    output = (input + 459.67) * 5 / 9;
+                } else if (output_in == "Rankine") {
+                    output = input + 459.67;
+                } else if (output_in == "Réaumur") {
+                    output = (input - 32) * 4 / 9;
+                }
+            } else if (source == "Kelvin") {
+                if (output_in == "Celsius") {
+                    output = input - 273.15;
+                } else if (output_in == "Fahrenheit") {
+                    output = (input * 9 / 5) - 459.67;
+                } else if (output_in == "Rankine") {
+                    output = input * 9 / 5;
+                } else if (output_in == "Réaumur") {
+                    output = (input - 273.15) * 4 / 5;
+                }
+            } else if (source == "Rankine") {
+                if (output_in == "Celsius") {
+                    output = (input - 491.67) * 5 / 9;
+                } else if (output_in == "Fahrenheit") {
+                    output = input - 459.67;
+                } else if (output_in == "Kelvin") {
+                    output = input * 5 / 9;
+                } else if (output_in == "Réaumur") {
+                    output = (input - 491.67) * 4 / 9;
+                }
+            } else if (source == "Réaumur") {
+                if (output_in == "Celsius") {
+                    output = input * 5 / 4;
+                } else if (output_in == "Fahrenheit") {
+                    output = (input * 9 / 4) + 32;
+                } else if (output_in == "Kelvin") {
+                    output = (input * 5 / 4) + 273.15;
+                } else if (output_in == "Rankine") {
+                    output = (input * 9 / 4) + 491.67;
+                }
+            }
+            document.getElementById('output').value = output.toFixed(2);
+        }
+    </script>
+</body>
+
+</html>
